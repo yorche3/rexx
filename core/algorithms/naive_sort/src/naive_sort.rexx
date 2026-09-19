@@ -4,17 +4,14 @@
  *
  * Especificación: 05_Naive_Sort
  *
- * Contrato: recibe una lista de enteros como cadena separada por blancos
- * ("5 2 9 1 5 6", el idioma de secuencia de REXX: words/word/subword) y
- * devuelve la lista ordenada de menor a mayor (in-place o como copia ordenada),
- * sin invocar ninguna biblioteca de ordenamiento y sin estructuras auxiliares
- * complejas. Las cadenas de REXX son inmutables, así que el resultado vuelve
- * por el valor devuelto.
- * Si la entrada es .Nil devuelve .Nil como indicador de fallo; si está vacía
- * ("") devuelve la misma cadena vacía. No lanza excepciones.
- *
- * Implementación pendiente: la escribe el autor. Esta delegación solo genera el
- * esqueleto y las pruebas unitarias.
+ * Contrato: recibe una lista de enteros como .Array de ooRexx
+ * (.array~of(5, 2, 9, 1, 5, 6)) y devuelve la misma lista ordenada de menor a
+ * mayor. El orden es in-place: se modifican los elementos de la entrada y se
+ * devuelve su referencia, sin invocar ninguna biblioteca de ordenamiento ni
+ * estructuras auxiliares complejas.
+ * Si la entrada es .Nil devuelve .Nil como indicador de fallo; si tiene menos
+ * de dos elementos (.array~new) devuelve la entrada sin cambios. No lanza
+ * excepciones.
  */
 ::method selection_sort class
   use arg arr
@@ -24,14 +21,14 @@
   do i = 1 to n - 1
     min_index = i
     do j = i + 1 to n
-      if arr~at(j) < arr~at(min_index) then
+      if arr~at(j) < arr~at(min_index) then do
         min_index = j
       end
     end
-    if min_index \= i then
+    if min_index \= i then do
       temp = arr~at(i)
-      arr~at(i) = arr~at(min_index)
-      arr~at(min_index) = temp
+      arr[i] = arr~at(min_index)
+      arr[min_index] = temp
     end
   end
   return arr
@@ -44,10 +41,10 @@
   do i = 1 to n - 1
     swapped = .false
     do j = 1 to n - i
-      if arr~at(j) > arr~at(j + 1) then
+      if arr~at(j) > arr~at(j + 1) then do
         temp = arr~at(j)
-        arr~at(j) = arr~at(j + 1)
-        arr~at(j + 1) = temp
+        arr[j] = arr~at(j + 1)
+        arr[j + 1] = temp
         swapped = .true
       end
     end
@@ -63,10 +60,11 @@
   do i = 2 to n
     key = arr~at(i)
     j = i - 1
-    do while j > 0 & arr~at(j) > key
-      arr~at(j + 1) = arr~at(j)
+    do while j > 0
+      if arr~at(j) <= key then leave
+      arr[j + 1] = arr~at(j)
       j = j - 1
     end
-    arr~at(j + 1) = key
+    arr[j + 1] = key
   end
   return arr

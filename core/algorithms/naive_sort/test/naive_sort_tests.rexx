@@ -1,9 +1,9 @@
 /* Casos de prueba de la especificación 05_Naive_Sort.md
  *
- * Representación: la lista de enteros es una cadena separada por blancos
- * ("5 2 9 1 5 6"), el idioma de secuencia de REXX (words/word/subword), y la
- * lista vacía es "". Como las cadenas son inmutables, cada caso puede usar la
- * constante compartida sin riesgo de contaminar los siguientes.
+ * Representación: las constantes de cada caso son cadenas separadas por blancos
+ * ("5 2 9 1 5 6"), el idioma de secuencia de REXX (words/word/subword), y el
+ * ayudante compartido construye con ellas un .Array nuevo por caso, porque el
+ * orden es in-place y la entrada se modifica.
  *
  * Caso nulo incluido: `.Nil` es representable y distinguible de la lista vacía
  * (""), así que el indicador de fallo del contrato es `.Nil` y se comprueba de
@@ -91,9 +91,31 @@ aResult~print
   cases = .NaiveSortTest~cases
   do i = 1 to cases~items
     aCase = cases[i]
-    actual = .NaiveSort~send(methodName, aCase[2])
-    self~assertEquals(aCase[3], actual, algorithm "should sort" aCase[1])
+    actual = .NaiveSort~send(methodName, self~buildArray(aCase[2]))
+    self~assertEquals(self~asText(aCase[3]), self~asText(actual), algorithm "should sort" aCase[1])
   end
+
+/* Construye un .Array nuevo por caso: los algoritmos ordenan in-place. */
+::method buildArray
+  use arg input
+  if input == .Nil then return .Nil
+  values = .array~new
+  do i = 1 to words(input)
+    values~append(word(input, i))
+  end
+  return values
+
+/* Normaliza el valor a texto comparable, con un blanco entre elementos; las
+ * cadenas se ajustan a espacios simples y .Nil se conserva como indicador. */
+::method asText
+  use arg value
+  if value == .Nil then return .Nil
+  if \value~isA(.array) then return space(value)
+  text = ""
+  do i = 1 to value~items
+    text = text value~at(i)
+  end
+  return strip(text)
 
 ::method testSelectionSort
   self~assertSortsAllCases("selection_sort", "selection_sort")
