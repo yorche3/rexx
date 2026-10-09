@@ -11,6 +11,7 @@ Los módulos de esta fase trabajan sobre `.Array` de ooRexx, que se ordenan *in-
 | Módulo | Especificación | Enfoque | Tests | Estado |
 |--------|---------------|---------|:-----:|:------:|
 | [`naive_sort/`](naive_sort/) | [05_Naive_Sort](https://yorche3.github.io/programming_languages/core/algorithms/05_Naive_Sort/) | `rexx test/naive_sort_tests.rexx` (ooRexxUnit) | 24 | ✅ |
+| [`data_structures_basics/`](data_structures_basics/) | [06_Data_Structures_Basics](https://yorche3.github.io/programming_languages/core/algorithms/06_Data_Structures_Basics/) | `rexx test/data_structures_basics_tests.rexx` (ooRexxUnit) | 23 | ✅ |
 
 ---
 
@@ -18,11 +19,17 @@ Los módulos de esta fase trabajan sobre `.Array` de ooRexx, que se ordenan *in-
 
 ```text
 algorithms/
-└── naive_sort/                      # 05_Naive_Sort
+├── naive_sort/                      # 05_Naive_Sort
+│   ├── src/
+│   │   └── naive_sort.rexx          # Módulo: clase NaiveSort con 3 métodos de clase
+│   ├── test/
+│   │   └── naive_sort_tests.rexx    # Suite: 3 tests × 8 casos + helper compartido
+│   └── README.md
+└── data_structures_basics/          # 06_Data_Structures_Basics
     ├── src/
-    │   └── naive_sort.rexx          # Módulo: clase NaiveSort con 3 métodos de clase
+    │   └── data_structures_basics.rexx # Módulo: clases Node, LinkedList, Stack, Queue
     ├── test/
-    │   └── naive_sort_tests.rexx    # Suite: 3 tests × 8 casos + helper compartido
+    │   └── data_structures_basics_tests.rexx # Suite: 23 tests (106 aserciones)
     └── README.md
 ```
 
@@ -56,6 +63,10 @@ algorithms/
 # Naive Sort Tests
 cd naive_sort
 rexx test/naive_sort_tests.rexx
+
+# Data Structures Basics Tests
+cd data_structures_basics
+rexx test/data_structures_basics_tests.rexx
 ```
 
 ---

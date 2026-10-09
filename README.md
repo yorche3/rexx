@@ -11,7 +11,7 @@ con el intérprete `rexx` y proyectos con pruebas unitarias gestionados con
 | Módulo | Descripción |
 | ------ | ----------- |
 | [`core/foundations/`](core/foundations/) | **Fase 0 — Fundamentos**: `helloworld`, `hellouser`, `unit_test/calculator`, `numbers` |
-| [`core/algorithms/`](core/algorithms/) | **Fase 1 — Algoritmos Puros**: `naive_sort` |
+| [`core/algorithms/`](core/algorithms/) | **Fase 1 — Algoritmos Puros**: `naive_sort`, `data_structures_basics` |
 
 ---
 
@@ -38,6 +38,10 @@ rexx test/iterative_tests.rexx
 # Naive Sort Tests
 cd core/algorithms/naive_sort
 rexx test/naive_sort_tests.rexx
+
+# Data Structures Basics Tests
+cd core/algorithms/data_structures_basics
+rexx test/data_structures_basics_tests.rexx
 ```
 
 ---
