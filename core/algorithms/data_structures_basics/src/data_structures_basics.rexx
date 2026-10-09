@@ -16,8 +16,10 @@
  *   - El estado de instancia se declara con `::attribute`: ooRexx no crea
  *     variables de instancia por asignación (`self~x = v` sin atributo falla
  *     con 97.1).
- *   - Los cuerpos de las operaciones son esqueletos que devuelven el indicador
- *     natural y no lanzan excepciones: el algoritmo es del paso 5.
+ *   - Operaciones implementadas con recorridos propios y `do`/`end` explícitos
+ *     para los bloques de más de una instrucción (en REXX un `if` no se cierra
+ *     con `end`: es Error 10). Sin excepciones ni indicadores nuevos: solo los
+ *     de arriba.
  */
 
 /* Node: celda enlazada compartida por LinkedList, Stack y Queue.
@@ -34,13 +36,14 @@
   self~next  = .Nil
 
 ::method get_value
-  return -1
+  return self~value
 
 ::method get_next
-  return .Nil
+  return self~next
 
 ::method set_next
   use arg n
+  self~next = n
   return
 
 /* LinkedList: lista enlazada construida desde cero sobre Node. */
@@ -56,25 +59,58 @@
   self~count = 0
 
 ::method get_head
-  return -1
+  if self~head == .Nil then return -1
+  return self~head~get_value()
 
 ::method insert_head
   use arg value
+  new_node = .Node~new(value)
+  new_node~set_next(self~head)
+  self~head = new_node
+  if self~tail == .Nil then self~tail = new_node
+  self~count = self~count + 1
   return
 
 ::method insert_tail
   use arg value
+  new_node = .Node~new(value)
+  if self~tail == .Nil then do
+    self~head = new_node
+    self~tail = new_node
+  end
+  else do
+    self~tail~set_next(new_node)
+    self~tail = new_node
+  end
+  self~count = self~count + 1
   return
 
 ::method delete
   use arg value
+  current  = self~head
+  previous = .Nil
+  do while current \== .Nil
+    if current~get_value() == value then do
+      if previous == .Nil then do
+        self~head = current~get_next()
+      end
+      else do
+        previous~set_next(current~get_next())
+      end
+      if current~get_next() == .Nil then self~tail = previous
+      self~count = self~count - 1
+      return 1
+    end
+    previous = current
+    current  = current~get_next()
+  end
   return 0
 
 ::method is_empty
-  return 0
+  return self~count == 0
 
 ::method size
-  return 0
+  return self~count
 
 /* Stack: pila LIFO construida desde cero sobre Node. */
 ::class Stack public
@@ -88,19 +124,28 @@
 
 ::method push
   use arg value
+  new_node = .Node~new(value)
+  new_node~set_next(self~top)
+  self~top = new_node
+  self~count = self~count + 1
   return
 
 ::method pop
-  return -1
+  if self~top == .Nil then return -1
+  value = self~top~get_value()
+  self~top = self~top~get_next()
+  self~count = self~count - 1
+  return value
 
 ::method peek
-  return -1
+  if self~top == .Nil then return -1
+  return self~top~get_value()
 
 ::method is_empty
-  return 0
+  return self~count == 0
 
 ::method size
-  return 0
+  return self~count
 
 /* Queue: cola FIFO construida desde cero sobre Node. */
 ::class Queue public
@@ -116,16 +161,32 @@
 
 ::method enqueue
   use arg value
+  new_node = .Node~new(value)
+  if self~rear == .Nil then do
+    self~front = new_node
+    self~rear = new_node
+  end
+  else do
+    self~rear~set_next(new_node)
+    self~rear = new_node
+  end
+  self~count = self~count + 1
   return
 
 ::method dequeue
-  return -1
+  if self~front == .Nil then return -1
+  value = self~front~get_value()
+  self~front = self~front~get_next()
+  if self~front == .Nil then self~rear = .Nil
+  self~count = self~count - 1
+  return value
 
 ::method peek
-  return -1
+  if self~front == .Nil then return -1
+  return self~front~get_value()
 
 ::method is_empty
-  return 0
+  return self~count == 0
 
 ::method size
-  return 0
+  return self~count
