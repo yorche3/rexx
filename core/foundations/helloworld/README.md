@@ -8,7 +8,7 @@ Implementación de la especificación [01_Hello_World](https://yorche3.github.io
 
 | Archivo | Propósito |
 |---------|-----------|
-| [`hello_world.rexx`](hello_world.rexx) | Código fuente: imprime `"Hello, World! from Rexx"` en la salida estándar. |
+| [`hello_world.rexx`](hello_world.rexx) | Código fuente: imprime `"Hello, World! from REXX!"` en la salida estándar. |
 
 **Estructura de directorios esperada:**
 
@@ -45,13 +45,13 @@ helloworld/
 No se requieren archivos de configuración de build. El programa se ejecuta directamente con el intérprete `rexx`.
 
 ```rexx
-say "Hello, World! from Rexx"
+say "Hello, World! from REXX!"
 ```
 
 | Elemento | Propósito |
 |----------|-----------|
 | `say` | **Instrucción** (keyword) de REXX que escribe su argumento en la salida estándar seguido de un salto de línea (`\n`). |
-| `"Hello, World! from Rexx"` | Argumento: la cadena a imprimir. |
+| `"Hello, World! from REXX!"` | Argumento: la cadena a imprimir. |
 
 > **ES:** REXX es un lenguaje *typeless*: las cadenas no requieren comillas obligatoriamente (`say Hello` es válido). Aquí se usan comillas dobles porque la cadena contiene una coma y signos; las comillas también delimitan espacios en blanco.
 > **EN:** REXX is a *typeless* language: strings do not require quotes (`say Hello` is valid). Double quotes are used here because the string contains a comma and symbols; quotes also delimit blank spaces.
@@ -80,7 +80,7 @@ rexx hello_world.rexx
 ### Alternativa: ejecutar desde una cadena / Alternative: run from a string
 
 ```bash
-rexx -e 'say "Hello, World! from Rexx"'
+rexx -e 'say "Hello, World! from REXX!"'
 ```
 
 ### Salida esperada / Expected output

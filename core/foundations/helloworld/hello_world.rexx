@@ -1,1 +1,1 @@
-say "Hello, World! from Rexx"
+say "Hello, World! from REXX!"
