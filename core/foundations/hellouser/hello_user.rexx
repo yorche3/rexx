@@ -1,3 +1,3 @@
 say "Enter your name: "
-pull name
-say "Hello, " name "!"
+parse pull name
+say "Hello, " || name || "!"
