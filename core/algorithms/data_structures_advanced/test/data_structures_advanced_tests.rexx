@@ -248,3 +248,19 @@ aResult~print
   self~assertEquals(1, graph~has_edge(10, 10), "Self-loop: has_edge 10 10 should succeed")
   self~assertEquals("10", self~neighbors(graph, 10), "Self-loop: neighbours of 10 should be 10")
   self~assertCounts(graph, 1, 1, "Self-loop")
+
+::method testGraphNeighbourResultIsolation
+  graph = self~graphWith(10 30 50)
+  self~assertEquals(1, graph~add_edge(10, 30), "Isolation: add_edge 10 30 should succeed")
+  saved = graph~get_neighbors(10)
+  copy = graph~get_neighbors(10)
+  copy~append(99)
+  self~assertEquals("30", self~neighbors(graph, 10), "Isolation: copy change must not touch the graph")
+  self~assertEquals(1, graph~add_edge(10, 50), "Isolation: add_edge 10 50 should succeed")
+  text = ""
+  do item over saved~allItems
+    text = text item
+  end
+  self~assertEquals("30", strip(text), "Isolation: the saved result should stay 30")
+  self~assertEquals("30 50", self~neighbors(graph, 10), "Isolation: a fresh query should be 30 50")
+  self~assertCounts(graph, 3, 2, "Isolation")
