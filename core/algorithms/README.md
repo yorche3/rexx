@@ -12,6 +12,7 @@ Los módulos de esta fase trabajan sobre `.Array` de ooRexx, que se ordenan *in-
 |--------|---------------|---------|:-----:|:------:|
 | [`naive_sort/`](naive_sort/) | [05_Naive_Sort](https://yorche3.github.io/programming_languages/core/algorithms/05_Naive_Sort/) | `rexx test/naive_sort_tests.rexx` (ooRexxUnit) | 24 | ✅ |
 | [`data_structures_basics/`](data_structures_basics/) | [06_Data_Structures_Basics](https://yorche3.github.io/programming_languages/core/algorithms/06_Data_Structures_Basics/) | `rexx test/data_structures_basics_tests.rexx` (ooRexxUnit) | 23 | ✅ |
+| [`data_structures_advanced/`](data_structures_advanced/) | [07_Data_Structures_Advanced](https://yorche3.github.io/programming_languages/core/algorithms/07_Data_Structures_Advanced/) | `rexx test/data_structures_advanced_tests.rexx` (ooRexxUnit) | 24 | ✅ |
 
 ---
 
@@ -25,11 +26,17 @@ algorithms/
 │   ├── test/
 │   │   └── naive_sort_tests.rexx    # Suite: 3 tests × 8 casos + helper compartido
 │   └── README.md
-└── data_structures_basics/          # 06_Data_Structures_Basics
+├── data_structures_basics/          # 06_Data_Structures_Basics
+│   ├── src/
+│   │   └── data_structures_basics.rexx # Módulo: clases Node, LinkedList, Stack, Queue
+│   ├── test/
+│   │   └── data_structures_basics_tests.rexx # Suite: 23 tests (106 aserciones)
+│   └── README.md
+└── data_structures_advanced/        # 07_Data_Structures_Advanced
     ├── src/
-    │   └── data_structures_basics.rexx # Módulo: clases Node, LinkedList, Stack, Queue
+    │   └── data_structures_advanced.rexx # Módulo: clases Node, TreeNode, BinaryTree, GraphNode, Graph
     ├── test/
-    │   └── data_structures_basics_tests.rexx # Suite: 23 tests (106 aserciones)
+    │   └── data_structures_advanced_tests.rexx # Suite: 24 test runs (156 aserciones)
     └── README.md
 ```
 
@@ -67,6 +74,10 @@ rexx test/naive_sort_tests.rexx
 # Data Structures Basics Tests
 cd data_structures_basics
 rexx test/data_structures_basics_tests.rexx
+
+# Data Structures Advanced Tests
+cd data_structures_advanced
+rexx test/data_structures_advanced_tests.rexx
 ```
 
 ---

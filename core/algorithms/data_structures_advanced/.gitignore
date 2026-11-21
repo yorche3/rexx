@@ -1,0 +1,4 @@
+# Rexx — no build artifacts for interpreted ooRexx
+# This .gitignore is intentionally minimal.
+*.rxo
+*.bin
